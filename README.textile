@@ -8,4 +8,8 @@ h2. Requirements
 
 @gem install bossman@
 
-@javac -cp `echo lib/*jar | tr ' ' :` Ranker.java@
+h2. Running the ranker
+
+1. Get a Yahoo API key
+2. Copy config.yml.example to config.yml and add in your key
+3. ruby graph.rb 'New York'
