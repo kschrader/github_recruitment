@@ -12,3 +12,7 @@ h2. Running the ranker
 # Get a Yahoo API key (https://developer.apps.yahoo.com/wsregapp/)
 # Copy config.yml.example to config.yml and add in your key
 # ruby graph.rb 'New York'
+
+h2. Credit
+
+Originally forked from https://github.com/mattb/flotsam
