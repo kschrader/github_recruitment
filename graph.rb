@@ -16,19 +16,30 @@ java_import Java::edu.uci.ics.jung.algorithms.importance.BetweennessCentrality
 java_import Java::edu.uci.ics.jung.graph.util.EdgeType
 
 $stdout.sync = true
-puts "Getting URLs"
 BOSSMan.application_id = YAML.load_file("config.yml")['yahookey']
-offset = 0
-done = false
 urls = []
 location = ARGV[0]
-while !done
-    results = BOSSMan::Search.web('site:github.com location "' + location + '" "profile - github"', :start => offset)
-    offset += results.count.to_i
-    if offset > results.totalhits.to_i
-        done = true
-    end
-    urls += results.results.map { |r| r.url }
+
+if location == 'New York'
+  aggregated_locations = ['Brooklyn', 'New York', 'Queens']
+else
+  aggregated_locations = [location]
+end
+
+aggregated_locations.each do |individual_location|
+  puts "Finding developers in #{individual_location}"
+  puts "---"
+  offset = 0
+  done = false
+  
+  while !done
+      results = BOSSMan::Search.web('site:github.com location "' + individual_location + '" "profile - github"', :start => offset)
+      offset += results.count.to_i
+      if offset > results.totalhits.to_i
+          done = true
+      end
+      urls += results.results.map { |r| r.url }
+  end
 end
 
 puts "Getting social graph"
